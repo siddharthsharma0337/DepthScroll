@@ -80,11 +80,11 @@ export default function OverlayUI({ proxyRef }) {
     // Entrance: fade + rise the whole hero block (synced with the loader sliding up)
     gsap.fromTo(heroTitleRef.current,
       { opacity: 0, y: 60 },
-      { opacity: 1, y: 0, duration: 1.4, ease: 'power4.out', delay: 1.6 }
+      { opacity: 1, y: 0, duration: 1.4, ease: 'expo.out', delay: 1.6 }
     )
     gsap.fromTo(heroTaglineRef.current,
       { opacity: 0, y: 30 },
-      { opacity: 1, y: 0, duration: 1, ease: 'power3.out', delay: 1.8 }
+      { opacity: 1, y: 0, duration: 1, ease: 'expo.out', delay: 1.8 }
     )
 
     // Scroll-out: whole scene fades and rises away
@@ -97,8 +97,8 @@ export default function OverlayUI({ proxyRef }) {
       },
     })
     t1
-      .to(heroTitleWrapRef.current, { opacity: 0, y: -80, ease: 'power2.in', duration: 1 })
-      .to(heroTaglineWrapRef.current, { opacity: 0, y: -60, ease: 'power2.in', duration: 1 }, '<')
+      .to(heroTitleWrapRef.current, { opacity: 0, y: -80, ease: 'expo.in', duration: 1 })
+      .to(heroTaglineWrapRef.current, { opacity: 0, y: -60, ease: 'expo.in', duration: 1 }, '<')
       .to(scene1Ref.current, { opacity: 0, duration: 0.15 }, 0.85)
     triggers.push(t1.scrollTrigger)
 
@@ -110,7 +110,11 @@ export default function OverlayUI({ proxyRef }) {
 
     // split the h2 into lines for stagger
     const split2 = new SplitText(card2H2Ref.current, { type: 'lines' })
+    const split2P = new SplitText(card2PRef.current, { type: 'lines' })
     gsap.set(split2.lines, { yPercent: 100, opacity: 0 })
+    gsap.set(split2P.lines, { yPercent: 100, opacity: 0 })
+    const stats2 = card2StatsRef.current.querySelectorAll('.stat')
+    gsap.set(stats2, { opacity: 0, y: 20 })
 
     const t2 = gsap.timeline({
       scrollTrigger: {
@@ -122,12 +126,12 @@ export default function OverlayUI({ proxyRef }) {
     })
     t2
       .to(scene2Ref.current, { opacity: 1, duration: 0.05 })
-      .to(card2Ref.current, { x: 0, opacity: 1, ease: 'power3.out', duration: 0.3 }, '<')
-      .to(split2.lines, { yPercent: 0, opacity: 1, stagger: 0.04, ease: 'power3.out', duration: 0.25 }, 0.15)
-      .to(card2PRef.current, { opacity: 1, y: 0, ease: 'power2.out', duration: 0.2 }, 0.25)
-      .to(card2StatsRef.current, { opacity: 1, y: 0, ease: 'power2.out', duration: 0.2 }, 0.3)
+      .to(card2Ref.current, { x: 0, opacity: 1, ease: 'expo.out', duration: 0.3 }, '<')
+      .to(split2.lines, { yPercent: 0, opacity: 1, stagger: 0.04, ease: 'expo.out', duration: 0.25 }, 0.15)
+      .to(split2P.lines, { yPercent: 0, opacity: 1, stagger: 0.02, ease: 'expo.out', duration: 0.25 }, 0.2)
+      .to(stats2, { opacity: 1, y: 0, stagger: 0.04, ease: 'expo.out', duration: 0.25 }, 0.25)
       // -- Fully visible plateau between 0.6s and 1.0s --
-      .to(card2Ref.current, { x: -80, opacity: 0, ease: 'power2.in', duration: 0.3 }, 1.0)
+      .to(card2Ref.current, { x: -80, opacity: 0, ease: 'expo.in', duration: 0.3 }, 1.0)
       .to(scene2Ref.current, { opacity: 0, duration: 0.1 }, 1.25)
     triggers.push(t2.scrollTrigger)
 
@@ -138,7 +142,11 @@ export default function OverlayUI({ proxyRef }) {
     gsap.set(card3Ref.current, { x: -80, opacity: 0 })
 
     const split3 = new SplitText(card3H2Ref.current, { type: 'lines' })
+    const split3P = new SplitText(card3PRef.current, { type: 'lines' })
     gsap.set(split3.lines, { yPercent: 100, opacity: 0 })
+    gsap.set(split3P.lines, { yPercent: 100, opacity: 0 })
+    const stats3 = card3StatsRef.current.querySelectorAll('.stat')
+    gsap.set(stats3, { opacity: 0, y: 20 })
 
     const t3 = gsap.timeline({
       scrollTrigger: {
@@ -150,12 +158,12 @@ export default function OverlayUI({ proxyRef }) {
     })
     t3
       .to(scene3Ref.current, { opacity: 1, duration: 0.05 })
-      .to(card3Ref.current, { x: 0, opacity: 1, ease: 'power3.out', duration: 0.3 }, '<')
-      .to(split3.lines, { yPercent: 0, opacity: 1, stagger: 0.04, ease: 'power3.out', duration: 0.25 }, 0.15)
-      .to(card3PRef.current, { opacity: 1, y: 0, ease: 'power2.out', duration: 0.2 }, 0.25)
-      .to(card3StatsRef.current, { opacity: 1, y: 0, ease: 'power2.out', duration: 0.2 }, 0.3)
+      .to(card3Ref.current, { x: 0, opacity: 1, ease: 'expo.out', duration: 0.3 }, '<')
+      .to(split3.lines, { yPercent: 0, opacity: 1, stagger: 0.04, ease: 'expo.out', duration: 0.25 }, 0.15)
+      .to(split3P.lines, { yPercent: 0, opacity: 1, stagger: 0.02, ease: 'expo.out', duration: 0.25 }, 0.2)
+      .to(stats3, { opacity: 1, y: 0, stagger: 0.04, ease: 'expo.out', duration: 0.25 }, 0.25)
       // -- Fully visible plateau between 0.6s and 1.0s --
-      .to(card3Ref.current, { x: 80, opacity: 0, ease: 'power2.in', duration: 0.3 }, 1.0)
+      .to(card3Ref.current, { x: 80, opacity: 0, ease: 'expo.in', duration: 0.3 }, 1.0)
       .to(scene3Ref.current, { opacity: 0, duration: 0.1 }, 1.25)
     triggers.push(t3.scrollTrigger)
 
@@ -177,17 +185,17 @@ export default function OverlayUI({ proxyRef }) {
       },
     })
     t4
-      .to(scene4Ref.current, { opacity: 1, ease: 'power2.out', duration: 0.2 })
-      .to(finalTitleRef.current, { opacity: 1, y: 0, ease: 'power3.out', duration: 0.45 })
-      .to(finalCtaRef.current, { opacity: 1, scale: 1, ease: 'back.out(1.5)', duration: 0.3 }, '-=0.2')
-      .to(finalSubRef.current, { opacity: 1, x: 0, ease: 'power2.out', duration: 0.4 }, '-=0.2')
-      .to(finalPillsRef.current, { opacity: 1, x: 0, ease: 'power2.out', duration: 0.4 }, '<')
+      .to(scene4Ref.current, { opacity: 1, ease: 'power4.out', duration: 0.2 })
+      .to(finalTitleRef.current, { opacity: 1, y: 0, ease: 'expo.out', duration: 0.45 })
+      .to(finalCtaRef.current, { opacity: 1, scale: 1, ease: 'back.out(2)', duration: 0.3 }, '-=0.2')
+      .to(finalSubRef.current, { opacity: 1, x: 0, ease: 'expo.out', duration: 0.4 }, '-=0.2')
+      .to(finalPillsRef.current, { opacity: 1, x: 0, ease: 'expo.out', duration: 0.4 }, '<')
     triggers.push(t4.scrollTrigger)
 
     // ─────────────────────────────────────────────
     // SCROLL HINT (0–5%)
     // ─────────────────────────────────────────────
-    gsap.to(scrollHintRef.current, { opacity: 1, duration: 1.5, delay: 0.8, ease: 'power2.inOut' })
+    gsap.to(scrollHintRef.current, { opacity: 1, duration: 1.5, delay: 0.8, ease: 'expo.inOut' })
 
     const hintTrigger = ScrollTrigger.create({
       trigger: proxyRef.current,
@@ -204,10 +212,37 @@ export default function OverlayUI({ proxyRef }) {
     })
     triggers.push(hintTrigger)
 
+    // ─────────────────────────────────────────────
+    // MAGNETIC BUTTON PHYSICS
+    // ─────────────────────────────────────────────
+    const magneticElements = document.querySelectorAll('.magnetic')
+    const handleMagneticMove = (e) => {
+      const el = e.currentTarget
+      const rect = el.getBoundingClientRect()
+      const x = e.clientX - rect.left - rect.width / 2
+      const y = e.clientY - rect.top - rect.height / 2
+      gsap.to(el, { x: x * 0.4, y: y * 0.4, duration: 0.3, ease: 'power4.out', overwrite: 'auto' })
+    }
+    const handleMagneticLeave = (e) => {
+      const el = e.currentTarget
+      gsap.to(el, { x: 0, y: 0, duration: 0.7, ease: 'elastic.out(1.2, 0.4)', overwrite: 'auto' })
+    }
+    
+    magneticElements.forEach(el => {
+      el.addEventListener('mousemove', handleMagneticMove)
+      el.addEventListener('mouseleave', handleMagneticLeave)
+    })
+
     return () => {
       triggers.forEach((t) => t?.kill())
       split2.revert()
+      split2P.revert()
       split3.revert()
+      split3P.revert()
+      magneticElements.forEach(el => {
+        el.removeEventListener('mousemove', handleMagneticMove)
+        el.removeEventListener('mouseleave', handleMagneticLeave)
+      })
     }
   }, [proxyRef])
 
@@ -239,12 +274,12 @@ export default function OverlayUI({ proxyRef }) {
               The Light Fades.<br />
               <i>The Pressure Builds.</i>
             </h2>
-            <p ref={card2PRef} style={{ opacity: 0, transform: 'translateY(16px)' }}>
+            <p ref={card2PRef}>
               As you leave the surface behind, vibrant blues surrender to the twilight.
               Here, the ocean guards its secrets in silence. Only the brave venture deeper.
             </p>
-            <div className="card-stats" ref={card2StatsRef} style={{ opacity: 0, transform: 'translateY(16px)' }}>
-              <div className="stat"><span className="stat-num">200m</span><span className="stat-lbl">Depth</span></div>
+            <div className="card-stats" ref={card2StatsRef}>
+              <div className="stat"><span className="stat-num">4727 m</span><span className="stat-lbl">Depth</span></div>
               <div className="stat"><span className="stat-num">1°C</span><span className="stat-lbl">Temperature</span></div>
               <div className="stat"><span className="stat-num">20×</span><span className="stat-lbl">Pressure</span></div>
             </div>
@@ -258,12 +293,12 @@ export default function OverlayUI({ proxyRef }) {
               Beyond The Sun.<br />
               <i>The Abyss Remains.</i>
             </h2>
-            <p ref={card3PRef} style={{ opacity: 0, transform: 'translateY(16px)' }}>
+            <p ref={card3PRef}>
               In the midnight zone, no sunlight penetrates. Only bioluminescence guides
               the way through this silent, crushing expanse of living darkness.
             </p>
-            <div className="card-stats" ref={card3StatsRef} style={{ opacity: 0, transform: 'translateY(16px)' }}>
-              <div className="stat"><span className="stat-num">1000m</span><span className="stat-lbl">Depth</span></div>
+            <div className="card-stats" ref={card3StatsRef}>
+              <div className="stat"><span className="stat-num">8026 m</span><span className="stat-lbl">Depth</span></div>
               <div className="stat"><span className="stat-num">-2°C</span><span className="stat-lbl">Temperature</span></div>
               <div className="stat"><span className="stat-num">100×</span><span className="stat-lbl">Pressure</span></div>
             </div>
@@ -281,7 +316,7 @@ export default function OverlayUI({ proxyRef }) {
                 <h2 className="finale-headline"><i>The Edge</i><br/>Of The World.</h2>
               </div>
               <div className="finale-btn-wrapper" ref={finalCtaRef}>
-                <button className="finale-btn" onClick={handleReturnToTop}>
+                <button className="finale-btn magnetic" onClick={handleReturnToTop}>
                   <span className="btn-text">Return To Surface ↑</span>
                 </button>
               </div>
@@ -298,7 +333,7 @@ export default function OverlayUI({ proxyRef }) {
             {/* Bottom Right HUD: Data Telemetry */}
             <div className="finale-hud-right" ref={finalPillsRef}>
               <div className="telemetry-list">
-                <div className="telemetry-item"><span className="tel-val">4,000m</span><span className="tel-lbl">Depth</span></div>
+                <div className="telemetry-item"><span className="tel-val">10,994 m</span><span className="tel-lbl">Depth</span></div>
                 <div className="telemetry-item"><span className="tel-val">1°C</span><span className="tel-lbl">Water Temp</span></div>
                 <div className="telemetry-item"><span className="tel-val">1,100 atm</span><span className="tel-lbl">Pressure</span></div>
                 <div className="telemetry-item"><span className="tel-val">Zero</span><span className="tel-lbl">Sunlight</span></div>
@@ -311,7 +346,7 @@ export default function OverlayUI({ proxyRef }) {
       </div>
 
       {/* ── Scroll Hint / Begin Descent ── */}
-      <button className="scroll-hint" ref={scrollHintRef} style={{ opacity: 0 }} onClick={handleBeginDescent}>
+      <button className="scroll-hint magnetic" ref={scrollHintRef} style={{ opacity: 0 }} onClick={handleBeginDescent}>
         <span className="scroll-hint__label">Begin Descent <span className="arrow-down">↓</span></span>
       </button>
     </>

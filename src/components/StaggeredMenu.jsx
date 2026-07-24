@@ -119,7 +119,7 @@ export default function StaggeredMenu({ isOpen, onToggle }) {
        <ul className="menu-nav">
          {menuItems.map((item, i) => (
            <li key={item.label} ref={(el) => { navItemsRef.current[i] = el; }}>
-             <a href={item.href}>{item.label}</a>
+             <a href={item.href} className="no-magnetic" onClick={(e) => e.preventDefault()}>{item.label}</a>
            </li>
          ))}
        </ul>
@@ -128,7 +128,7 @@ export default function StaggeredMenu({ isOpen, onToggle }) {
          <div className="menu-socials-title">Socials</div>
          <div className="menu-socials-links">
            {socialItems.map((s) => (
-             <a key={s.label} href={s.href} target="_blank" rel="noreferrer">{s.label}</a>
+             <a key={s.label} href={s.href} target="_blank" rel="noreferrer" className="no-magnetic" onClick={(e) => e.preventDefault()}>{s.label}</a>
            ))}
          </div>
        </div>

@@ -1,7 +1,10 @@
 import { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
+import { SplitText } from 'gsap/SplitText'
 import { useProgress } from '@react-three/drei'
 import useStore from '../../store/useStore'
+
+gsap.registerPlugin(SplitText)
 
 export default function Loader() {
   const isLoaded  = useStore((s) => s.isLoaded)
@@ -16,11 +19,18 @@ export default function Loader() {
   useEffect(() => {
     if (!fillRef.current) return
     
+    // Title SplitText
+    const splitTitle = new SplitText('.loader__title', { type: 'chars' })
+    gsap.fromTo(splitTitle.chars, 
+      { opacity: 0, y: 40 },
+      { opacity: 1, y: 0, duration: 1, stagger: 0.05, ease: 'expo.out', delay: 0.2 }
+    )
+
     // Fill gauge to an arbitrary "almost done" point
     gsap.to(fillRef.current, {
       height: '72%',
       duration: 2.4,
-      ease: 'power1.inOut',
+      ease: 'expo.inOut',
     })
 
     // Stagger dots in
@@ -29,7 +39,7 @@ export default function Loader() {
       duration: 0.5,
       stagger: 0.15,
       delay: 0.4,
-      ease: 'power2.inOut',
+      ease: 'expo.out',
     })
 
     // Hint pulse text
@@ -39,6 +49,8 @@ export default function Loader() {
       delay: 0.6,
       ease: 'power2.inOut',
     })
+    
+    return () => splitTitle.revert()
   }, [])
 
   // 2. Complete animation and exit when fully loaded
@@ -50,14 +62,14 @@ export default function Loader() {
     // Light up the first dot immediately as a sign of readiness
     const activeDot = dotsRef.current[0]
     if (activeDot) {
-      gsap.to(activeDot, { opacity: 1, scale: 1.4, duration: 0.3, ease: 'power2.out' })
+      gsap.to(activeDot, { opacity: 1, scale: 1.4, duration: 0.3, ease: 'expo.out' })
     }
 
     // Complete gauge fill to 100%
     tl.to(fillRef.current, {
       height: '100%',
       duration: 0.5,
-      ease: 'power2.inOut',
+      ease: 'expo.inOut',
     })
 
     // Stagger remaining dots to full opacity and scale
@@ -66,20 +78,26 @@ export default function Loader() {
       scale: 1.2,
       duration: 0.25,
       stagger: 0.06,
-      ease: 'power2.out',
+      ease: 'expo.out',
     }, '-=0.2')
 
-    // Fade and slide the entire loader out, then hide it
-    tl.to(loaderRef.current, {
+    // Fade out inner elements quickly
+    tl.to('.loader__title, .loader__subtitle, .loader__gauge, .loader__dots, .loader__hint', {
       opacity: 0,
-      y: -30,
+      y: -20,
+      duration: 0.6,
+      ease: 'expo.inOut'
+    })
+
+    // Slide up curtain
+    tl.to(loaderRef.current, {
+      yPercent: -100,
       duration: 1.2,
-      delay: 0.5,
-      ease: 'power2.inOut',
+      ease: 'expo.inOut',
       onComplete: () => {
         if (loaderRef.current) loaderRef.current.style.display = 'none'
       },
-    })
+    }, '-=0.4')
   }, [isFullyLoaded])
 
   return (

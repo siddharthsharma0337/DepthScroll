@@ -1,13 +1,22 @@
+import { useEffect } from 'react'
+import { gsap } from 'gsap'
 import useStore from '../../store/useStore'
 import './TopNav.css'
 
 export default function TopNav() {
   const currentScene = useStore((s) => s.currentScene)
 
+  useEffect(() => {
+    gsap.fromTo('.topnav-brand, .topnav-links a, .topnav-cta', 
+      { opacity: 0, y: -20 },
+      { opacity: 1, y: 0, duration: 1.2, stagger: 0.1, ease: 'expo.out', delay: 2.2 }
+    )
+  }, [])
+
   return (
     <>
       <div className={`topnav-center ${currentScene > 1 ? 'dark-theme' : ''}`}>
-        <div className="topnav-brand">
+        <div className="topnav-brand magnetic">
           <svg 
             className="topnav-logo-icon" 
             width="14" 
@@ -26,12 +35,12 @@ export default function TopNav() {
           DEPTHSCROLL
         </div>
         <div className="topnav-links">
-          <a href="#expeditions">EXPEDITIONS</a>
-          <a href="#membership">MEMBERSHIP</a>
-          <a href="#research">RESEARCH</a>
-          <a href="#logbook">LOGBOOK</a>
+          <a href="#expeditions" className="magnetic">EXPEDITIONS</a>
+          <a href="#membership" className="magnetic">MEMBERSHIP</a>
+          <a href="#research" className="magnetic">RESEARCH</a>
+          <a href="#logbook" className="magnetic">LOGBOOK</a>
         </div>
-        <button className="topnav-cta">BOOK EXPEDITION</button>
+        <button className="topnav-cta magnetic">BOOK EXPEDITION</button>
       </div>
     </>
   )

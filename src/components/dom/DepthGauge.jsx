@@ -7,9 +7,16 @@ gsap.registerPlugin(ScrollTrigger)
 
 export default function DepthGauge({ proxyRef }) {
   const thumbRef = useRef(null)
+  const wrapperRef = useRef(null)
   const [depth, setDepth] = useState(0)
 
   useEffect(() => {
+    // Slide in animation on load
+    gsap.fromTo(wrapperRef.current,
+      { x: 100, opacity: 0 },
+      { x: 0, opacity: 1, duration: 1.5, ease: 'expo.out', delay: 2.2 }
+    )
+
     // Determine the scroll element: use the proxy if available, or the document body
     const scrollTarget = proxyRef && proxyRef.current ? proxyRef.current : document.body
 
@@ -31,7 +38,7 @@ export default function DepthGauge({ proxyRef }) {
   }, [proxyRef])
 
   return (
-    <div className="depth-gauge-wrapper">
+    <div className="depth-gauge-wrapper" ref={wrapperRef}>
       <div className="depth-gauge-text">{depth}M</div>
       <div className="depth-gauge-track">
         <div className="depth-gauge-thumb" ref={thumbRef}>

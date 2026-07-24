@@ -5,37 +5,61 @@ import './CustomCursor.css'
 /**
  * CustomCursor
  * 
- * An ocean-themed custom cursor featuring a solid inner dot 
- * and a larger, glowing, delayed bubble outline.
+ * Premium ocean cursor with interactive hover states.
  */
 export default function CustomCursor() {
   const cursorDotRef = useRef(null)
   const cursorOutlineRef = useRef(null)
 
   useEffect(() => {
-    // Hide default cursor initially
     document.body.style.cursor = 'none'
+
+    let isHovering = false
 
     const onMouseMove = (e) => {
       const { clientX, clientY } = e
+      const target = e.target.closest('button:not(.no-magnetic), a:not(.no-magnetic), .magnetic')
+      
+      if (target) {
+        if (!isHovering) {
+          isHovering = true
+          gsap.to(cursorDotRef.current, { scale: 0, opacity: 0, duration: 0.3, ease: 'power4.out' })
+          gsap.to(cursorOutlineRef.current, { 
+            scale: 2, 
+            backgroundColor: 'rgba(255, 255, 255, 0)', 
+            borderColor: 'rgba(255, 255, 255, 0.6)', 
+            duration: 0.4, 
+            ease: 'expo.out' 
+          })
+        }
+      } else {
+        if (isHovering) {
+          isHovering = false
+          gsap.to(cursorDotRef.current, { scale: 1, opacity: 1, duration: 0.3, ease: 'power4.out' })
+          gsap.to(cursorOutlineRef.current, { 
+            scale: 1, 
+            backgroundColor: 'rgba(0, 200, 255, 0)', 
+            borderColor: 'rgba(0, 255, 255, 0.6)', 
+            duration: 0.4, 
+            ease: 'expo.out' 
+          })
+        }
+      }
 
-      // Instant inner dot movement
       gsap.to(cursorDotRef.current, {
         x: clientX,
         y: clientY,
         duration: 0,
       })
 
-      // Delayed fluid outline movement
       gsap.to(cursorOutlineRef.current, {
         x: clientX,
         y: clientY,
-        duration: 0.8,
-        ease: 'power3.out',
+        duration: isHovering ? 0.15 : 0.8,
+        ease: isHovering ? 'power2.out' : 'power3.out',
       })
     }
 
-    // Set initial position
     gsap.set(cursorDotRef.current, { xPercent: -50, yPercent: -50 })
     gsap.set(cursorOutlineRef.current, { xPercent: -50, yPercent: -50 })
 
