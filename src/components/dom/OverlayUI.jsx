@@ -197,20 +197,16 @@ export default function OverlayUI({ proxyRef }) {
     // ─────────────────────────────────────────────
     gsap.to(scrollHintRef.current, { opacity: 1, duration: 1.5, delay: 0.8, ease: 'expo.inOut' })
 
-    const hintTrigger = ScrollTrigger.create({
-      trigger: proxyRef.current,
-      start: 'top top',
-      end: '5% top',
-      scrub: true,
-      onUpdate: (self) => {
-        if (self.progress > 0.05) gsap.killTweensOf(scrollHintRef.current)
-        if (scrollHintRef.current) {
-          scrollHintRef.current.style.opacity = 1 - self.progress
-          scrollHintRef.current.style.visibility = self.progress >= 1 ? 'hidden' : 'visible'
-        }
-      },
+    const tHint = gsap.timeline({
+      scrollTrigger: {
+        trigger: proxyRef.current,
+        start: 'top top',
+        end: '5% top',
+        scrub: true,
+      }
     })
-    triggers.push(hintTrigger)
+    tHint.to(scrollHintRef.current, { autoAlpha: 0 })
+    triggers.push(tHint.scrollTrigger)
 
     // ─────────────────────────────────────────────
     // MAGNETIC BUTTON PHYSICS

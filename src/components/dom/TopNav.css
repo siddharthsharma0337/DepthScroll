@@ -121,3 +121,26 @@
   background: rgba(255, 255, 255, 0.15);
   border-color: rgba(255, 255, 255, 0.3);
 }
+
+/* ── Mobile Responsive ── */
+@media (max-width: 768px) {
+  .topnav-center {
+    width: calc(100% - 32px);
+    left: 16px;
+    top: 16px;
+    transform: none;
+    padding: 12px 24px;
+    justify-content: flex-start;
+  }
+  .topnav-brand {
+    margin-right: 0;
+    padding-right: 0;
+    border-right: none;
+    font-size: 11px;
+    letter-spacing: 3px;
+    gap: 12px;
+  }
+  .topnav-links, .topnav-cta {
+    display: none;
+  }
+}

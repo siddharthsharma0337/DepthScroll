@@ -1,5 +1,6 @@
 import { useEffect, useRef, useCallback } from 'react';
 import gsap from 'gsap';
+import useStore from '../store/useStore';
 import './StaggeredMenu.css';
 
 // ── Edit your nav links here ──────────────────────────────────────────────────
@@ -20,6 +21,7 @@ const socialItems = [
 ];
 
 export default function StaggeredMenu({ isOpen, onToggle }) {
+ const currentScene  = useStore((s) => s.currentScene);
  const panelRef      = useRef(null);
  const prelayer1Ref  = useRef(null);
  const prelayer2Ref  = useRef(null);
@@ -99,7 +101,7 @@ export default function StaggeredMenu({ isOpen, onToggle }) {
  return (
    <div className="staggered-menu">
      {/* Toggle button */}
-     <button className={`menu-toggle ${isOpen ? 'is-open' : ''}`} onClick={onToggle}>
+     <button className={`menu-toggle ${isOpen ? 'is-open' : ''} ${currentScene > 1 ? 'dark-theme' : ''}`} onClick={onToggle}>
        <span className="menu-toggle-label">
          <span ref={menuLabelRef}>MENU</span>
          <span ref={closeLabelRef} style={{ top: '100%' }}>CLOSE</span>

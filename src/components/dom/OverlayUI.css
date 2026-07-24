@@ -481,3 +481,95 @@
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(4px); }
 }
+
+/* ── Mobile Responsive ── */
+@media (max-width: 768px) {
+  .scene-1 {
+    padding-left: 5vw;
+  }
+  .hero-title {
+    font-size: clamp(36px, 10vw, 100px);
+  }
+  
+  .scene-2, .scene-3 {
+    justify-content: center;
+    padding-left: 5vw;
+    padding-right: 5vw;
+  }
+  
+  .glass-card {
+    max-width: 90vw;
+    padding: 24px 20px;
+    margin: 0 auto;
+  }
+  
+  .card-stats {
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  
+  .finale-content {
+    justify-content: space-evenly;
+    padding: 10px 20px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  }
+  
+  .finale-center {
+    position: static;
+    transform: none;
+    align-items: center;
+    text-align: center;
+    margin: 0 auto;
+    width: 100%;
+  }
+  
+  .final-cta-title {
+    align-items: center;
+    text-align: center;
+    margin-bottom: 24px;
+    width: 100%;
+  }
+
+  .finale-headline {
+    font-size: clamp(38px, 13vw, 64px);
+    line-height: 1.05;
+  }
+  
+  .finale-btn {
+    padding: 14px 36px;
+    font-size: 10px;
+  }
+  
+  .finale-hud-left, .finale-hud-right {
+    position: static;
+    text-align: center;
+    align-items: center;
+    margin-top: 0;
+    max-width: 100%;
+    width: 100%;
+  }
+  
+  .return-top-btn {
+    display: none; /* Hide top-right return button on mobile, use the main CTA instead */
+  }
+  
+  .finale-descriptor {
+    font-size: 9px;
+    padding: 0 10px;
+    line-height: 2;
+  }
+  
+  .telemetry-list {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+  }
+  
+  .telemetry-item {
+    align-items: center;
+  }
+}
