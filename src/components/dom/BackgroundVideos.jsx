@@ -1,12 +1,12 @@
-import { useRef, useEffect } from 'react'
+import { useRef, useEffect, useState } from 'react'
 import useStore from '../../store/useStore'
 
 /**
  * BackgroundVideos
  *
  * Renders 4 stacked, continuously looping <video> elements.
- * ALL 4 play from mount. Opacity crossfades are driven externally
- * by SceneManager via GSAP ScrollTrigger — NOT by this component.
+ * First video loads immediately to dismiss loader. 
+ * Remaining videos lazy-load in the background to save initial bandwidth.
  *
  * Exposes videoRefs upward via the onRefsReady callback.
  */
@@ -16,55 +16,57 @@ export default function BackgroundVideos({ onRefsReady }) {
   const v3 = useRef(null)
   const v4 = useRef(null)
   const setLoaded = useStore((s) => s.setLoaded)
+  const [loadOthers, setLoadOthers] = useState(false)
 
   const scenes = [
     { ref: v1, src: '/videos/scene%201.mp4', initial: 1 },
-    { ref: v2, src: '/videos/scene%202.mp4', initial: 0 },
-    { ref: v3, src: '/videos/scene%203.mp4', initial: 0 },
-    { ref: v4, src: '/videos/scene%204.mp4', initial: 0 },
+    { ref: v2, src: loadOthers ? '/videos/scene%202.mp4' : '', initial: 0 },
+    { ref: v3, src: loadOthers ? '/videos/scene%203.mp4' : '', initial: 0 },
+    { ref: v4, src: loadOthers ? '/videos/scene%204.mp4' : '', initial: 0 },
   ]
 
   useEffect(() => {
     // Expose refs to parent (SceneManager) for GSAP targeting
     if (onRefsReady) onRefsReady([v1, v2, v3, v4])
 
-    // Track how many videos are ready
-    let readyCount = 0
-    const total = scenes.length
+    const el = v1.current
+    if (!el) return
 
     const handleReady = () => {
-      readyCount++
-      // Mark loaded once ALL videos can play
-      if (readyCount >= total) setLoaded(true)
+      setLoaded(true)
+      setLoadOthers(true)
     }
 
-    scenes.forEach(({ ref, initial }) => {
-      const el = ref.current
-      if (!el) return
-      if (el.readyState >= 3) {
-        handleReady()
-      } else {
-        el.addEventListener('canplaythrough', handleReady, { once: true })
-      }
-      // Force play (some browsers need explicit call after autoplay attr)
-      if (initial > 0) {
-        el.play().catch(() => {})
-      } else {
-        el.pause()
-      }
-    })
+    if (el.readyState >= 3) {
+      handleReady()
+    } else {
+      el.addEventListener('canplaythrough', handleReady, { once: true })
+    }
+
+    // Force play first video
+    el.play().catch(() => {})
 
     // Safety fallback: dismiss loader after 8s no matter what
-    const safetyTimer = setTimeout(() => setLoaded(true), 8000)
+    const safetyTimer = setTimeout(() => {
+      setLoaded(true)
+      setLoadOthers(true)
+    }, 8000)
 
     return () => {
       clearTimeout(safetyTimer)
-      scenes.forEach(({ ref }) => {
-        ref.current?.removeEventListener('canplaythrough', handleReady)
-      })
+      el.removeEventListener('canplaythrough', handleReady)
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
+  // When subsequent videos are loaded, make sure they are paused
+  useEffect(() => {
+    if (loadOthers) {
+      v2.current?.pause()
+      v3.current?.pause()
+      v4.current?.pause()
+    }
+  }, [loadOthers])
 
   return (
     <div className="video-layer">
@@ -72,12 +74,12 @@ export default function BackgroundVideos({ onRefsReady }) {
         <video
           key={i}
           ref={ref}
-          src={src}
+          src={src || undefined}
           muted
           loop
           playsInline
-          autoPlay
-          preload="auto"
+          autoPlay={initial > 0}
+          preload={src ? "auto" : "none"}
           style={{ opacity: initial, willChange: 'opacity' }}
         />
       ))}
