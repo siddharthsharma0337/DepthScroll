@@ -119,7 +119,15 @@ export default function StaggeredMenu({ isOpen, onToggle }) {
        <ul className="menu-nav">
          {menuItems.map((item, i) => (
            <li key={item.label} ref={(el) => { navItemsRef.current[i] = el; }}>
-             <a href={item.href} className="no-magnetic" onClick={(e) => e.preventDefault()}>{item.label}</a>
+             <a 
+               href={item.href} 
+               className="no-magnetic" 
+               onClick={(e) => {
+                 if (item.href !== '/') e.preventDefault();
+               }}
+             >
+               {item.label}
+             </a>
            </li>
          ))}
        </ul>
