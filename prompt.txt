@@ -1,0 +1,484 @@
+You are an award-winning Creative Frontend Engineer, Three.js developer, GSAP animation expert, cinematic motion designer, WebGL engineer, and UX designer.
+
+Your task is NOT to create a normal website loader.
+
+Your task is to create the opening cinematic of an immersive storytelling experience called **DepthScroll**.
+
+The loader should feel like the first scene of a AAA game or a Netflix documentary, not a loading spinner.
+
+=========================================================
+CORE CONCEPT
+=========================================================
+
+The user is not waiting for a page.
+
+The user is unlocking an ancient submerged gateway before beginning a descent into the ocean.
+
+The loader IS the beginning of the story.
+
+The transition from loader into the website must feel like one continuous camera movement.
+
+There should NEVER be a visible page transition.
+
+No fade to white.
+No fade to black.
+
+Only one uninterrupted cinematic shot.
+
+=========================================================
+VISUAL STORY
+=========================================================
+
+The screen starts almost completely black.
+
+Only subtle floating underwater particles are visible.
+
+Very slowly, an enormous circular ancient mechanism becomes visible.
+
+Imagine an ancient underwater pressure hatch built thousands of years ago.
+
+NOT fantasy.
+
+NOT magical.
+
+NOT medieval.
+
+Think:
+
+Roman engineering
+
+Ancient Greek craftsmanship
+
+Submerged archaeological ruins
+
+Bronze engineering
+
+Lost civilization
+
+Massive underwater pressure door
+
+Everything must feel physically believable.
+
+=========================================================
+THE HATCH
+=========================================================
+
+The hatch occupies roughly 70–80% of the viewport.
+
+It is composed of:
+
+Large circular stone frame
+
+Several concentric bronze rings
+
+Intricate engravings
+
+Ancient symbols
+
+Mechanical locking pins
+
+Heavy stone construction
+
+Weathered bronze
+
+Oxidized turquoise patina
+
+Barnacles
+
+Coral
+
+Seaweed
+
+Small shell growth
+
+Hairline cracks
+
+Sediment deposits
+
+Nothing should look clean.
+
+Everything should look hundreds of years old.
+
+=========================================================
+CAMERA
+=========================================================
+
+The camera slowly approaches the hatch throughout the loading sequence.
+
+Movement is extremely subtle.
+
+Very cinematic.
+
+Never static.
+
+Camera motion should feel like a real underwater camera slowly drifting toward the structure.
+
+Very slight camera sway.
+
+Very slight inertia.
+
+=========================================================
+UNDERWATER ENVIRONMENT
+=========================================================
+
+The surrounding water contains:
+
+floating plankton
+
+small bubbles
+
+marine snow
+
+dust particles
+
+volumetric blue light
+
+caustic lighting
+
+soft god rays
+
+light fog
+
+Everything should reinforce that we are underwater.
+
+=========================================================
+AMBIENT LIFE
+=========================================================
+
+Tiny fish occasionally swim across the frame.
+
+Small shrimp may move along the stone.
+
+Tiny jellyfish may slowly drift past.
+
+Nothing should distract from the hatch.
+
+These movements are only there to make the scene feel alive.
+
+=========================================================
+LOADING PROGRESS
+=========================================================
+
+The loading progress controls the ancient mechanism.
+
+Do NOT use a loading bar.
+
+Do NOT use a spinner.
+
+Do NOT use percentages.
+
+The mechanism itself communicates progress.
+
+---------------------------------------------------------
+
+0%
+
+Entire mechanism is locked.
+
+Only ambient movement.
+
+Particles.
+
+Fish.
+
+---------------------------------------------------------
+
+20%
+
+Outer bronze ring begins rotating.
+
+Very slowly.
+
+Heavy resistance.
+
+Deep grinding sound.
+
+Sediment falls.
+
+Tiny bubbles escape.
+
+---------------------------------------------------------
+
+40%
+
+Second ring rotates.
+
+Ancient engraved symbols align.
+
+More debris falls.
+
+Tiny fish scatter.
+
+---------------------------------------------------------
+
+60%
+
+Mechanical locking pins retract.
+
+Heavy metallic sounds.
+
+Pressure vibrations.
+
+Subtle camera shake.
+
+---------------------------------------------------------
+
+80%
+
+Center mechanism slowly pushes inward.
+
+Entire hatch vibrates.
+
+Sand erupts from edges.
+
+Ancient pressure seal begins breaking.
+
+---------------------------------------------------------
+
+100%
+
+Everything becomes still.
+
+One second of silence.
+
+Then...
+
+The enormous hatch slowly opens.
+
+The opening reveals beautiful blue ocean light.
+
+The camera continues moving forward through the opening.
+
+This movement seamlessly transitions into the homepage hero section.
+
+=========================================================
+ANIMATION STYLE
+=========================================================
+
+Everything must feel MASSIVE.
+
+Nothing moves quickly.
+
+Every movement has:
+
+weight
+
+inertia
+
+momentum
+
+resistance
+
+slow acceleration
+
+slow deceleration
+
+No robotic movement.
+
+No linear animation.
+
+Everything uses cinematic easing.
+
+=========================================================
+MATERIALS
+=========================================================
+
+Stone:
+
+limestone
+
+basalt
+
+weathered rock
+
+erosion
+
+chips
+
+cracks
+
+Bronze:
+
+aged bronze
+
+oxidized patina
+
+scratches
+
+engravings
+
+corrosion
+
+Ocean:
+
+floating particles
+
+light rays
+
+subtle fog
+
+bubbles
+
+=========================================================
+SOUND DESIGN (optional placeholders)
+=========================================================
+
+Include hooks for sound effects.
+
+Examples:
+
+deep underwater ambience
+
+low frequency rumble
+
+stone grinding
+
+metal stress
+
+pressure release
+
+bubbles
+
+distant whale
+
+These should be optional audio files.
+
+=========================================================
+INTERACTION
+=========================================================
+
+The loader automatically begins.
+
+If assets finish loading early:
+
+Continue the animation naturally.
+
+Never instantly skip.
+
+If loading takes longer:
+
+Hold the current mechanism stage with subtle ambient movement until ready.
+
+Never freeze.
+
+=========================================================
+TECHNICAL REQUIREMENTS
+=========================================================
+
+Use modern web technologies.
+
+Preferred stack:
+
+Next.js
+
+React
+
+Three.js
+
+React Three Fiber
+
+Drei
+
+GSAP
+
+Framer Motion where appropriate
+
+TypeScript
+
+TailwindCSS
+
+The animation must maintain 60 FPS on modern hardware.
+
+Optimize draw calls.
+
+Optimize geometry.
+
+Optimize textures.
+
+Lazy load heavy assets.
+
+Pause rendering when hidden.
+
+Support desktop and mobile.
+
+Respect reduced-motion accessibility settings.
+
+=========================================================
+ARCHITECTURE
+=========================================================
+
+Structure the project cleanly.
+
+Suggested components:
+
+Loader.tsx
+
+AncientHatch.tsx
+
+CameraRig.tsx
+
+Particles.tsx
+
+Fish.tsx
+
+BubbleSystem.tsx
+
+OceanLighting.tsx
+
+ProgressController.ts
+
+SoundManager.ts
+
+TransitionManager.ts
+
+=========================================================
+TRANSITION
+=========================================================
+
+The most important requirement.
+
+The loader must become the website.
+
+NOT disappear.
+
+NOT fade out.
+
+The camera physically travels through the opened hatch.
+
+The camera then arrives naturally inside the first scene of the website.
+
+The user should feel like they have entered another world.
+
+=========================================================
+DESIGN PHILOSOPHY
+=========================================================
+
+This experience should feel like a mix between:
+
+Interstellar
+
+Avatar: The Way of Water
+
+Journey
+
+ABZÛ
+
+National Geographic
+
+Apple product launch animations
+
+Luxury museum installations
+
+AAA game opening cinematic
+
+=========================================================
+IMPORTANT
+=========================================================
+
+Do NOT build a generic loading animation.
+
+Build a cinematic interactive storytelling intro that emotionally prepares the user for the journey into DepthScroll.
+
+Every animation decision should reinforce scale, mystery, realism, and immersion.
+
+Generate production-quality, modular, maintainable code with clear comments, reusable components, and performance optimizations.

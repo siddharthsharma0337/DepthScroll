@@ -1,0 +1,282 @@
+/* ============================================
+   DEPTHSCROLL — Global Styles
+   ============================================ */
+
+/* CSS Custom Properties — Color Tokens */
+:root {
+  --color-surface:      #a8d8f0;
+  --color-open-ocean:   #1a4a7a;
+  --color-twilight:     #0d1f3c;
+  --color-abyss:        #020508;
+  --color-text-primary: rgba(255, 255, 255, 0.92);
+  --color-text-muted:   rgba(255, 255, 255, 0.45);
+
+  --font-serif:  'Playfair Display', Georgia, serif;
+  --font-sans:   'Inter', system-ui, sans-serif;
+
+  --transition-ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* ── Reset ── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  height: 100%;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  height: 100%;
+  background: var(--color-abyss);
+  color: var(--color-text-primary);
+  font-family: var(--font-serif);
+  overflow-x: hidden;
+}
+
+#root {
+  height: 100%;
+}
+
+/* ── Filmic Grain Overlay ── */
+.grain-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  pointer-events: none;
+  opacity: 0.045;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-size: 128px 128px;
+  mix-blend-mode: overlay;
+}
+
+/* ── Scroll Proxy (drives GSAP ScrollTrigger) ── */
+.scroll-proxy {
+  position: relative;
+  height: 800vh;
+  width: 100%;
+  pointer-events: none;
+}
+
+/* ── Fixed Viewport Wrapper ── */
+.fixed-viewport {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* ── Video Layer ── */
+.video-layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.video-layer video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* ── Canvas Layer ── */
+.canvas-layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+}
+
+/* ── Vignette Overlay ── */
+.vignette-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 15;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 30%,
+    rgba(1, 4, 10, 0.85) 100%
+  );
+  opacity: 0.35;
+}
+
+/* ── Narrative Text ── */
+.narrative-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.narrative-text {
+  position: absolute;
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 300;
+  font-size: clamp(1.4rem, 3.5vw, 2.8rem);
+  color: var(--color-text-primary);
+  text-align: center;
+  letter-spacing: 0.04em;
+  line-height: 1.4;
+  opacity: 0;
+  will-change: opacity, transform;
+  text-shadow:
+    0 0 40px rgba(100, 180, 255, 0.3),
+    0 2px 12px rgba(0, 0, 0, 0.8);
+  padding: 0 clamp(1.5rem, 5vw, 4rem);
+  max-width: 680px;
+}
+
+/* Clip-path mask for character reveal */
+.narrative-text .char {
+  display: inline-block;
+  clip-path: inset(0 0 100% 0);
+  will-change: clip-path, transform;
+}
+
+/* ── Scene Label (top-left) ── */
+.scene-label {
+  position: absolute;
+  top: clamp(1.5rem, 3vh, 2.5rem);
+  left: clamp(1.5rem, 3vw, 3rem);
+  z-index: 25;
+  font-family: var(--font-sans);
+  font-size: clamp(0.6rem, 1vw, 0.75rem);
+  font-weight: 300;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  opacity: 0;
+  will-change: opacity;
+}
+
+/* ── Loader ── */
+.loader {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: #020508;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2.5rem;
+  will-change: opacity;
+}
+
+.loader__title {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(1.8rem, 5vw, 3.5rem);
+  font-weight: 300;
+  letter-spacing: 0.15em;
+  color: rgba(168, 216, 240, 0.9);
+}
+
+.loader__subtitle {
+  font-family: var(--font-sans);
+  font-size: 0.65rem;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.3);
+  margin-top: -1.5rem;
+}
+
+.loader__gauge {
+  width: 1px;
+  height: 80px;
+  background: rgba(255, 255, 255, 0.08);
+  position: relative;
+  overflow: hidden;
+}
+
+.loader__gauge-fill {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 0%;
+  background: linear-gradient(to bottom, #a8d8f0, #1a4a7a);
+}
+
+.loader__hint {
+  font-family: var(--font-sans);
+  font-size: 0.6rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.2);
+  animation: hint-pulse 2s ease-in-out infinite;
+}
+
+@keyframes hint-pulse {
+  0%, 100% { opacity: 0.2; }
+  50%       { opacity: 0.6; }
+}
+
+/* ── Scroll hint arrow ── */
+.scroll-hint {
+  position: absolute;
+  bottom: clamp(1.5rem, 4vh, 3rem);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 25;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  opacity: 0;
+  will-change: opacity;
+}
+
+.scroll-hint__label {
+  font-family: var(--font-sans);
+  font-size: 0.6rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.35);
+}
+
+.scroll-hint__arrow {
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(to bottom, rgba(255,255,255,0.4), transparent);
+  animation: arrow-drop 1.8s ease-in-out infinite;
+}
+
+@keyframes arrow-drop {
+  0%   { transform: scaleY(0); transform-origin: top; opacity: 1; }
+  60%  { transform: scaleY(1); transform-origin: top; opacity: 1; }
+  100% { transform: scaleY(1); transform-origin: top; opacity: 0; }
+}
+
+/* ── Accessibility: reduce motion ── */
+@media (prefers-reduced-motion: reduce) {
+  .loader__hint,
+  .scroll-hint__arrow {
+    animation: none;
+    opacity: 0.4;
+  }
+}
+
+/* ── Custom Ocean Scrollbar (Hidden) ── */
+::-webkit-scrollbar {
+  display: none;
+}
+

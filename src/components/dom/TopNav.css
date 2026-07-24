@@ -1,0 +1,123 @@
+.topnav-center {
+  position: fixed;
+  top: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  border-radius: 40px;
+  padding: 8px 8px 8px 36px;
+  z-index: 1000;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+  /* The navbar itself shouldn't block custom cursor interaction */
+  pointer-events: auto;
+  transition: all 0.6s ease;
+}
+
+.topnav-brand {
+  font-family: var(--font-serif), serif;
+  font-weight: 500;
+  font-size: 15px;
+  color: #1a2b3c;
+  letter-spacing: 5px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-right: 32px;
+  padding-right: 32px;
+  border-right: 1px solid rgba(0, 0, 0, 0.1);
+  transition: all 0.6s ease;
+}
+
+.topnav-logo-icon {
+  opacity: 0.9;
+  color: #1a2b3c;
+  transition: all 0.6s ease;
+}
+
+.topnav-links {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  margin-right: 32px;
+}
+
+.topnav-links a {
+  text-decoration: none;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  color: rgba(26, 43, 60, 0.85);
+  text-transform: uppercase;
+  transition: all 0.6s ease;
+  cursor: none;
+  /* Let the global custom cursor work here */
+}
+
+.topnav-links a:hover {
+  color: rgba(26, 43, 60, 1);
+}
+
+.topnav-cta {
+  background: #1e293b;
+  color: #ffffff;
+  border: none;
+  border-radius: 30px;
+  padding: 12px 28px;
+  font-family: var(--font-sans), inherit;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  white-space: nowrap;
+  cursor: none;
+  transition: all 0.6s ease;
+}
+
+.topnav-cta:hover {
+  background: #0f172a;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* --- Dynamic Dark Theme for Deep Scenes --- */
+.topnav-center.dark-theme {
+  background: rgba(15, 25, 40, 0.4);
+  border-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+}
+
+.topnav-center.dark-theme .topnav-brand {
+  color: rgba(255, 255, 255, 0.9);
+  border-right-color: rgba(255, 255, 255, 0.15);
+}
+
+.topnav-center.dark-theme .topnav-logo-icon {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.topnav-center.dark-theme .topnav-links a {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.topnav-center.dark-theme .topnav-links a:hover {
+  color: rgba(255, 255, 255, 1);
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+.topnav-center.dark-theme .topnav-cta {
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.topnav-center.dark-theme .topnav-cta:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.3);
+}
