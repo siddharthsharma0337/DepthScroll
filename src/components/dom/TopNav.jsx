@@ -5,6 +5,15 @@ import './TopNav.css'
 
 export default function TopNav() {
   const currentScene = useStore((s) => s.currentScene)
+  const lenisRef = useStore((s) => s.lenisRef)
+
+  const handleNavClick = (e, progress) => {
+    e.preventDefault()
+    if (lenisRef) {
+      const maxScroll = document.documentElement.scrollHeight - window.innerHeight
+      lenisRef.scrollTo(maxScroll * progress, { duration: 1.5 })
+    }
+  }
 
   useEffect(() => {
     gsap.fromTo('.topnav-brand, .topnav-links a, .topnav-cta', 
@@ -35,12 +44,12 @@ export default function TopNav() {
           DEPTHSCROLL
         </div>
         <div className="topnav-links">
-          <a href="#expeditions" className="magnetic">EXPEDITIONS</a>
-          <a href="#membership" className="magnetic">MEMBERSHIP</a>
-          <a href="#research" className="magnetic">RESEARCH</a>
-          <a href="#logbook" className="magnetic">LOGBOOK</a>
+          <a href="#scene1" onClick={(e) => handleNavClick(e, 0)} className="magnetic">SURFACE</a>
+          <a href="#scene2" onClick={(e) => handleNavClick(e, 0.43)} className="magnetic">TWILIGHT</a>
+          <a href="#scene3" onClick={(e) => handleNavClick(e, 0.73)} className="magnetic">MIDNIGHT</a>
+          <a href="#scene4" onClick={(e) => handleNavClick(e, 1)} className="magnetic">ABYSS</a>
         </div>
-        <button className="topnav-cta magnetic">BOOK EXPEDITION</button>
+        <button className="topnav-cta magnetic" onClick={() => window.location.href = 'mailto:siddharthsharma0337@gmail.com'}>BOOK EXPEDITION</button>
       </div>
     </>
   )

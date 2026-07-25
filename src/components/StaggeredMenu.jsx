@@ -5,12 +5,11 @@ import './StaggeredMenu.css';
 
 // ── Edit your nav links here ──────────────────────────────────────────────────
 const menuItems = [
- { label: 'Home',             href: '/' },
- { label: 'Our Fleet',        href: '/fleet' },
- { label: 'Membership',       href: '/membership' },
- { label: 'Regattas & Events',href: '/events' },
- { label: 'Academy',          href: '/academy' },
- { label: 'Contact',          href: '/contact' },
+ { label: 'SURFACE',  href: '#scene1', progress: 0 },
+ { label: 'TWILIGHT', href: '#scene2', progress: 0.43 },
+ { label: 'MIDNIGHT', href: '#scene3', progress: 0.73 },
+ { label: 'ABYSS',    href: '#scene4', progress: 1 },
+ { label: 'Contact',  href: 'mailto:siddharthsharma0337@gmail.com' },
 ];
 
 // ── Edit your social links here ───────────────────────────────────────────────
@@ -22,6 +21,7 @@ const socialItems = [
 
 export default function StaggeredMenu({ isOpen, onToggle }) {
  const currentScene  = useStore((s) => s.currentScene);
+ const lenisRef      = useStore((s) => s.lenisRef);
  const panelRef      = useRef(null);
  const prelayer1Ref  = useRef(null);
  const prelayer2Ref  = useRef(null);
@@ -31,6 +31,19 @@ export default function StaggeredMenu({ isOpen, onToggle }) {
  const closeLabelRef = useRef(null);
  const overlayRef    = useRef(null);
  const tlRef         = useRef(null);
+
+ const handleNavClick = (e, item) => {
+   if (item.progress !== undefined) {
+     e.preventDefault();
+     if (lenisRef) {
+       const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+       lenisRef.scrollTo(maxScroll * item.progress, { duration: 1.5 });
+     }
+     onToggle();
+   } else {
+     if (!item.href.startsWith('mailto:')) e.preventDefault();
+   }
+ };
 
  const animateOpen = useCallback(() => {
    const tl = gsap.timeline();
@@ -121,13 +134,11 @@ export default function StaggeredMenu({ isOpen, onToggle }) {
        <ul className="menu-nav">
          {menuItems.map((item, i) => (
            <li key={item.label} ref={(el) => { navItemsRef.current[i] = el; }}>
-             <a 
-               href={item.href} 
-               className="no-magnetic" 
-               onClick={(e) => {
-                 if (item.href !== '/') e.preventDefault();
-               }}
-             >
+              <a 
+                href={item.href} 
+                className="no-magnetic" 
+                onClick={(e) => handleNavClick(e, item)}
+              >
                {item.label}
              </a>
            </li>
