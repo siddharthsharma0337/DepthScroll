@@ -99,13 +99,13 @@ export default function OverlayUI({ proxyRef }) {
     t1
       .to(heroTitleWrapRef.current, { opacity: 0, y: -80, ease: 'expo.in', duration: 1 })
       .to(heroTaglineWrapRef.current, { opacity: 0, y: -60, ease: 'expo.in', duration: 1 }, '<')
-      .to(scene1Ref.current, { opacity: 0, duration: 0.15 }, 0.85)
+      .to(scene1Ref.current, { autoAlpha: 0, duration: 0.15 }, 0.85)
     triggers.push(t1.scrollTrigger)
 
     // ─────────────────────────────────────────────
     // SCENE 2 — Twilight card (right)
     // ─────────────────────────────────────────────
-    gsap.set(scene2Ref.current, { opacity: 0 })
+    gsap.set(scene2Ref.current, { autoAlpha: 0 })
     gsap.set(card2Ref.current, { x: 80, opacity: 0 })
 
     // split the h2 into lines for stagger
@@ -125,20 +125,20 @@ export default function OverlayUI({ proxyRef }) {
       },
     })
     t2
-      .to(scene2Ref.current, { opacity: 1, duration: 0.05 })
+      .to(scene2Ref.current, { autoAlpha: 1, duration: 0.05 })
       .to(card2Ref.current, { x: 0, opacity: 1, ease: 'expo.out', duration: 0.3 }, '<')
       .to(split2.lines, { yPercent: 0, opacity: 1, stagger: 0.04, ease: 'expo.out', duration: 0.25 }, 0.15)
       .to(split2P.lines, { yPercent: 0, opacity: 1, stagger: 0.02, ease: 'expo.out', duration: 0.25 }, 0.2)
       .to(stats2, { opacity: 1, y: 0, stagger: 0.04, ease: 'expo.out', duration: 0.25 }, 0.25)
       // -- Fully visible plateau between 0.6s and 1.0s --
       .to(card2Ref.current, { x: -80, opacity: 0, ease: 'expo.in', duration: 0.3 }, 1.0)
-      .to(scene2Ref.current, { opacity: 0, duration: 0.1 }, 1.25)
+      .to(scene2Ref.current, { autoAlpha: 0, duration: 0.1 }, 1.25)
     triggers.push(t2.scrollTrigger)
 
     // ─────────────────────────────────────────────
     // SCENE 3 — Midnight card (left)
     // ─────────────────────────────────────────────
-    gsap.set(scene3Ref.current, { opacity: 0 })
+    gsap.set(scene3Ref.current, { autoAlpha: 0 })
     gsap.set(card3Ref.current, { x: -80, opacity: 0 })
 
     const split3 = new SplitText(card3H2Ref.current, { type: 'lines' })
@@ -157,20 +157,20 @@ export default function OverlayUI({ proxyRef }) {
       },
     })
     t3
-      .to(scene3Ref.current, { opacity: 1, duration: 0.05 })
+      .to(scene3Ref.current, { autoAlpha: 1, duration: 0.05 })
       .to(card3Ref.current, { x: 0, opacity: 1, ease: 'expo.out', duration: 0.3 }, '<')
       .to(split3.lines, { yPercent: 0, opacity: 1, stagger: 0.04, ease: 'expo.out', duration: 0.25 }, 0.15)
       .to(split3P.lines, { yPercent: 0, opacity: 1, stagger: 0.02, ease: 'expo.out', duration: 0.25 }, 0.2)
       .to(stats3, { opacity: 1, y: 0, stagger: 0.04, ease: 'expo.out', duration: 0.25 }, 0.25)
       // -- Fully visible plateau between 0.6s and 1.0s --
       .to(card3Ref.current, { x: 80, opacity: 0, ease: 'expo.in', duration: 0.3 }, 1.0)
-      .to(scene3Ref.current, { opacity: 0, duration: 0.1 }, 1.25)
+      .to(scene3Ref.current, { autoAlpha: 0, duration: 0.1 }, 1.25)
     triggers.push(t3.scrollTrigger)
 
     // ─────────────────────────────────────────────
     // SCENE 4 — Abyss finale (Premium Redesign)
     // ─────────────────────────────────────────────
-    gsap.set(scene4Ref.current, { opacity: 0 })
+    gsap.set(scene4Ref.current, { autoAlpha: 0 })
     gsap.set(finalTitleRef.current, { opacity: 0, y: 60 })
     gsap.set(finalCtaRef.current, { opacity: 0, scale: 0.88 })
     gsap.set(finalSubRef.current, { opacity: 0, x: -40 })
@@ -185,7 +185,7 @@ export default function OverlayUI({ proxyRef }) {
       },
     })
     t4
-      .to(scene4Ref.current, { opacity: 1, ease: 'power4.out', duration: 0.2 })
+      .to(scene4Ref.current, { autoAlpha: 1, ease: 'power4.out', duration: 0.2 })
       .to(finalTitleRef.current, { opacity: 1, y: 0, ease: 'expo.out', duration: 0.45 })
       .to(finalCtaRef.current, { opacity: 1, scale: 1, ease: 'back.out(2)', duration: 0.3 }, '-=0.2')
       .to(finalSubRef.current, { opacity: 1, x: 0, ease: 'expo.out', duration: 0.4 }, '-=0.2')
